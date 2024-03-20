@@ -10,6 +10,8 @@
 
 using namespace std;
 
+
+
 class SteadySketch {
 private:
 	short* RBF;
@@ -44,6 +46,15 @@ public:
 
 		RBF_test = new short[RBFNum * 1398101];
 		
+	}
+
+	double bitrate(){
+		int num = 0;
+		for(int i=0; i < RBFNum*RBFL; i++){
+			for(int j=0; j<7; j++)
+				num += (RBF[i] & (1<<j)) >> j;
+		}
+		return 1.0*num/(RBFNum*RBFL*7);
 	}
 	void Insert(Item* e, int KEY_LEN) {
 
@@ -93,7 +104,6 @@ public:
 		unsigned char Group[2][sizeof(short)<<3] = {};
 
 		for (int i = 0; i < w; i++) Group[0][i] = Group[1][i] = 0xff;
-
 		for (int i = 0; i < d; i++) {
 			unsigned addr = ((index + (hashvalue & ((1 << GSalpha) - 1))) % ((i+1)*L)) * w;
 			GS[addr + TimeStamp]++;
@@ -101,14 +111,14 @@ public:
 
 			index += L;
 			hashvalue >>= GSalpha;
-			if (TagRBF >= RBFNum)continue;
+			if (TagRBF >= RBFNum && RBFNum) continue;
 			for (int j = 0; j < w; j++) {
 				Group[0][j] = Min(Group[0][j], GS[addr + j]);
 				Group[1][j] = Min(Group[1][j], GS[addr + j] + (unsigned char)0x80);
 			}
 			Group[0][TimeStamp] = Group[1][TimeStamp] = 0;
 		}
-		if (TagRBF >= RBFNum)return;
+		if (TagRBF >= RBFNum && RBFNum) return;
 
 		int EX[2] = {}, EX2[2] = {};
 
@@ -133,16 +143,20 @@ public:
 			}
 
 			ReportBuffer.push_back(make_pair(e->ItemID,make_pair(e->Window,DX_cur)));		
-
 			
 		}
 
-
-
 	}
+
+	map<pair<string, int>,bool>mp;
+
 	void flush(){
 		for (auto i= ReportBuffer.begin(); i != ReportBuffer.end();i++){
 			ItemID_1 = changeID(i->first);
+			if(mp[make_pair(ItemID_1, i->second.first)])
+				continue;
+			mp[make_pair(ItemID_1, i->second.first)]=1;
+			// cout<<ItemID_1<<" "<<i->second.first<<endl;
 			Instance_report.insert(make_pair(ItemID_1,make_pair(i->second.first, i->second.second)));
 		}
 	}

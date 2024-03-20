@@ -42,7 +42,7 @@ private:
 public:
 	vector<pair<string, pair<int, pair<int, int>>>> ReportBuffer = {};		
 	multimap<string, pair<int, pair<int, pair<int, int>>>> TopKReport = {};
-	multimap<string, pair<int,int>> Instance_report = {};
+	multimap<pair<string, int>,int> Instance_report = {};
 
 	StandardAlgorithm() { NumOfHashTable = _Period + 2; }
 
@@ -89,7 +89,7 @@ public:
 			//LXD
 			if(cal == 1){
 				ItemID_1 = changeID(e->ItemID);
-				Instance_report.insert(make_pair(ItemID_1,make_pair(e->Window,DX_cur)));
+				Instance_report.insert(make_pair(make_pair(ItemID_1,e->Window),DX_cur));
 			}
 		}
 

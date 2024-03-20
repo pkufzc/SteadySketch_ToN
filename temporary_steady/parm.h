@@ -51,7 +51,7 @@ int   _HashSeed = 0x100;// hashseed in murmurhash
 
 const float prop = 0.2; // the proportion of steadyfilter space in all memory size 
 
-const int memory_size = 100; // the memory occupied by steadyfilter and rollingsketch
+int memory_size = 100; // the memory occupied by steadyfilter and rollingsketch
 
 
 
