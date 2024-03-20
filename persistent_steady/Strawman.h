@@ -206,7 +206,7 @@ public:
 			k++, stablelength = i->second.second - i->second.first;//
 
 		}
-		printf("Comparison algorithm reports %u Top %d smooth items and the throughput is %lf Kibs.", (unsigned)TopKReport.size(), TopK, Throughput);
+		printf("throughput: %lf Kibs.", Throughput);
 
 	}
 	~CompareSketch() {

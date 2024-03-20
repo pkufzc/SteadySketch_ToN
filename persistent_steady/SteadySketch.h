@@ -226,7 +226,7 @@ public:
 
 		}
 
-		printf("GroupSketch reports %u Top %d smooth items and the throughput is %lf Kibs.", (unsigned)TopKReport.size(), TopK, Throughput);
+		printf("throughput: %lf Kibs.", Throughput);
 	}
 	~SteadySketch() {
 		for (int i = 0; i < _NumOfHeavyHitterBuckets; i++) {

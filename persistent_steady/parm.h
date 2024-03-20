@@ -49,11 +49,11 @@ int   _HashSeed = 0x100;// hashseed in murmurhash
 
 const float prop = 0.2; // the proportion of steadyfilter space in all memory size 
 
-const int memory_size = 200; // the memory occupied by steadyfilter and rollingsketch
+int memory_size = 300; // the memory occupied by steadyfilter and rollingsketch
 
 const int TopK = 100000;
 
-const int _NumOfHeavyHitterBuckets = 2000;// the number of buckets in stage 2
+const int _NumOfHeavyHitterBuckets = 2400;// the number of buckets in stage 2
 
 
 #endif
